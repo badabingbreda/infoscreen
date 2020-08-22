@@ -12,6 +12,7 @@ env.addFilter( 'moment' , function( string , output ) {
 var requesturl = 'https://nunjucks.cftoolbox.io/wp-json/remote-templates/v1/get_templates';
 
 var requesturl = 'https://wpbeaverbuilder.com/wp-json/wp/v2/posts';
+var requesturlpages = 'https://wpbeaverbuilder.com/wp-json/wp/v2/pages';
 
 (function($) {
 
@@ -27,7 +28,8 @@ var requesturl = 'https://wpbeaverbuilder.com/wp-json/wp/v2/posts';
 		infoscreen.render_data( { target : '#si-data' } );
 		infoscreen.render_slider( { target : '#si-slider' } );
 
-		infoscreen.autorefresh();
+		infoscreen.autorefresh( 30 );
+		infoscreen.autorefresh_slider( 120 );
 	});
 })(jQuery);
 
@@ -81,7 +83,7 @@ var infoscreen = {
 		$.ajax(
 			{
 				method: 'GET',
-				url: requesturl,
+				url: requesturlpages,
 				//data: { id: 3 , api: 'abcwegermee' }
 			}
 			).done( function( data ) {
@@ -97,16 +99,26 @@ var infoscreen = {
 	},
 
 
-	autorefresh: function() {
+	autorefresh: function( timeout ) {
+		timeout = ( typeof timeout == 'undefined' ) ? 30 : timeout;
 		setTimeout( function () {
 			infoscreen.notification( 'refreshing data' );
 			//UIkit.modal( '#modal-center' ).show();
 			infoscreen.render_data( { target : '#si-data' } );
 			infoscreen.autorefresh();
 
-		} , 30 * 1000 );
+		} , timeout * 1000 );
+	},
 
+	autorefresh_slider: function( timeout ) {
+		timeout = ( typeof timeout == 'undefined' ) ? 120 : timeout;
+		setTimeout( function () {
+			infoscreen.notification( 'refreshing data' );
+			//UIkit.modal( '#modal-center' ).show();
+			infoscreen.render_slider( { target : '#si-slider' } );
+			infoscreen.autorefresh_slider();
 
-
+		} , timeout * 1000 );
 	}
+
 }
