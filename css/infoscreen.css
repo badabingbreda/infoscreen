@@ -1,0 +1,12 @@
+body {
+	min-height:100vh;
+	overflow: hidden;
+}
+#is-main {
+	height: 100vh;
+	max-width: 100vw;
+}
+
+#si-slider {
+	max-height: 15vh;
+}

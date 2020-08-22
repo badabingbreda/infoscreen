@@ -1,0 +1,13 @@
+<div class="uk-position-relative uk-visible-toggle uk-padding" tabindex="-1" uk-slideshow="autoplay: true">
+    <ul class="uk-slideshow-items">
+{% set length = data.length if data.length < 5 else 5 %}
+{% for item in range( 0, length ) %}
+        <li>
+			<h3>{{ data[item].title.rendered | decodehtml | striptags -}}</h3>
+			<p>{{ data[item].excerpt.rendered | decodehtml | striptags -}}</p>
+        </li>
+{% endfor %}
+    </ul>
+    <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slideshow-item="previous"></a>
+    <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slideshow-item="next"></a>
+</div>

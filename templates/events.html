@@ -1,0 +1,15 @@
+{% set length = data.length if data.length < 3 else 3 %}
+{% for item in range( 0, length ) %}
+<div class="uk-flex-auto">
+	<div class="uk-grid uk-grid-small uk-padding-small">
+		<div class="uk-width-1-4">
+		{% if data[item].image %}<img data-src="{{ data[item].image }}" width="200" uk-img>{% endif %}
+		</div>
+		<div class="uk-width-3-4">
+		<h3>{{ data[item].title.rendered | decodehtml | striptags  -}}</h3>
+		<strong>{{ data[item].date|moment( 'YYYY MM DD hh:mm:ss' )}}</strong>
+		<p>{{ data[item].excerpt.rendered | decodehtml | striptags -}}</p>
+		</div>
+	</div>
+</div>
+{% endfor %}
